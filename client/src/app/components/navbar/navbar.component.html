@@ -3,15 +3,8 @@
     <!-- Logo -->
     <span class="navbar-brand navbar-logo">{{ "{ JuniorDevHub }" }}</span>
 
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -39,30 +32,29 @@
 
     <!-- Alert -->
     <div class="d-flex">
-      <nz-badge
-        [nzCount]="5"
-        class="nav-right"
-        nz-dropdown
-        [nzDropdownMenu]="menuNotification"
-      >
-        <i
-          nz-icon
-          nzType="bell"
-          style="font-size: 24px"
-          nzTheme="outline"
-          class="alert-icon"
-        ></i>
+      <nz-badge [nzCount]="5" class="nav-right" nz-dropdown [nzDropdownMenu]="menuNotification">
+        <i nz-icon nzType="bell" style="font-size: 26px" nzTheme="outline" class="alert-icon"></i>
       </nz-badge>
       <nz-dropdown-menu #menuNotification="nzDropdownMenu">
         <ul class="popover-bg-alert" nz-menu>
           <h6 class="menu-header">Notifications</h6>
           <li nz-menu-divider></li>
-          <li nz-menu-item routerLink="/posts/" [queryParams]="{ postId: 1 }">
-            1
+          <li>
+            <div>
+              <nz-avatar nzIcon="user"></nz-avatar>
+              <a class="notification-by-who" routerLink="/users/" [queryParams]="{ userId: 0 }"> David Kim</a>
+              commented on your
+              <a class="notification-by-who" routerLink="/posts/" [queryParams]="{ postId: 1 }">post</a>.
+            </div>
           </li>
           <li nz-menu-divider></li>
-          <li nz-menu-item routerLink="/posts/" [queryParams]="{ postId: 2 }">
-            2
+          <li>
+            <div>
+              <nz-avatar nzIcon="user"></nz-avatar>
+              <a class="notification-by-who" routerLink="/users/" [queryParams]="{ userId: 0 }"> David Kim</a>
+              commented on your
+              <a class="notification-by-who" routerLink="/posts/" [queryParams]="{ postId: 1 }">post</a>.
+            </div>
           </li>
         </ul>
       </nz-dropdown-menu>
@@ -70,55 +62,34 @@
 
     <!-- Profile -->
     <div class="d-flex">
-      <nz-avatar
-        nz-dropdown
-        [nzDropdownMenu]="menu"
-        class="nav-right"
-        nzIcon="user"
-      ></nz-avatar>
+      <nz-avatar nz-dropdown [nzDropdownMenu]="menu" class="nav-right" nzIcon="user"></nz-avatar>
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul class="popover-bg-profile" nz-menu>
           <h6 class="menu-header">Profile</h6>
           <li nz-menu-divider></li>
           <li nz-menu-item routerLink="/users/" [queryParams]="{ userId: 0 }">
-            <i
-              nz-icon
-              nzType="user"
-              nzTheme="outline"
-              style="font-size: 20px"
-            ></i>
+            <i nz-icon nzType="user" nzTheme="outline" style="font-size: 20px"></i>
             NAME
           </li>
           <li nz-menu-divider></li>
           <li nz-menu-item routerLink="/settings">
-            <i
-              nz-icon
-              nzType="setting"
-              nzTheme="outline"
-              style="font-size: 20px"
-            ></i>
+            <i nz-icon nzType="setting" nzTheme="outline" style="font-size: 20px"></i>
             Settings
           </li>
-          <li nz-menu-divider></li>
-          <li nz-menu-item>
-            <i
-              nz-icon
-              nzType="logout"
-              nzTheme="outline"
-              style="font-size: 20px"
-            ></i>
-            Logout
-          </li>
-          <li nz-menu-divider></li>
-          <li nz-menu-item routerLink="/login">
-            <i
-              nz-icon
-              nzType="login"
-              nzTheme="outline"
-              style="font-size: 20px"
-            ></i>
-            Login
-          </li>
+          <div *ngIf="authService.isLoggedIn()">
+            <li nz-menu-divider></li>
+            <li nz-menu-item (click)="authService.logout()">
+              <i nz-icon nzType="logout" nzTheme="outline" style="font-size: 20px"></i>
+              Logout
+            </li>
+          </div>
+          <div *ngIf="!authService.isLoggedIn()">
+            <li nz-menu-divider></li>
+            <li nz-menu-item routerLink="/login">
+              <i nz-icon nzType="login" nzTheme="outline" style="font-size: 20px"></i>
+              Login
+            </li>
+          </div>
         </ul>
       </nz-dropdown-menu>
     </div>

@@ -1,3 +1,4 @@
+import { AntdModule } from './antd.module';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
 
@@ -14,17 +15,9 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { NZ_I18N } from 'ng-zorro-antd/i18n';
-import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzBadgeModule } from 'ng-zorro-antd/badge';
-import { NzAvatarModule } from 'ng-zorro-antd/avatar';
-import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 registerLocaleData(en);
 
@@ -41,22 +34,13 @@ registerLocaleData(en);
   imports: [
     BrowserModule,
     AppRoutingModule,
+    AntdModule,
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    NzIconModule,
-    NzInputModule,
-    NzBadgeModule,
-    NzAvatarModule,
-    NzDropDownModule,
-    NzDividerModule,
   ],
-  providers: [
-    AuthService,
-    AuthGuardService,
-    { provide: NZ_I18N, useValue: en_US },
-  ],
+  providers: [AuthService, AuthGuardService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
