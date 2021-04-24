@@ -1,1 +1,48 @@
-<p>profile works!</p>
+<div class="container text-center">
+    <div class="row justify-content-md-center">
+        <img class="cover-pic" nz-image nzSrc="http://localhost:8081/api/users/cover-img/{{authService.userId}}"
+            alt="" />
+
+        <div class="profile-pic">
+            <nz-avatar class="avatar-pic" [nzSize]="140" nzIcon="user"
+                nzSrc="http://localhost:8081/api/users/profile-img/{{authService.userId}}"></nz-avatar>
+            <h3>Maxim Pokidaylo</h3>
+            <h6>Software Developer</h6>
+        </div>
+
+        <div class="row text-start profile-pic">
+            <div class="col col-lg-3">
+                <nz-divider nzOrientation="center" nzText="Information"></nz-divider>
+                <div class="text-start">
+                    <nz-space>
+                        <button nz-button nzType="primary">Edit</button>
+                    </nz-space>
+                </div>
+                <br />
+                <nz-list nzBordered nzItemLayout="horizontal" [nzLoading]="loading">
+                    <nz-list-item *ngFor="let item of data">
+                        <nz-list-item-meta [nzDescription]="item.title">
+                            <nz-list-item-meta-title>
+                                <a>{{ item.description }}</a>
+                            </nz-list-item-meta-title>
+                        </nz-list-item-meta>
+                        <fa-icon [icon]="item.icon"></fa-icon>
+                    </nz-list-item>
+                    <nz-list-empty *ngIf="data.length === 0"></nz-list-empty>
+                </nz-list>
+            </div>
+
+            <div class="col">
+                <nz-divider nzOrientation="center" nzText="Posts"></nz-divider>
+                <div class="text-end">
+                    <nz-space>
+                        <button *nzSpaceItem nz-button nzType="primary">Recent</button>
+                        <button *nzSpaceItem nz-button nzType="primary">Popular</button>
+                    </nz-space>
+                </div>
+                <br />
+
+            </div>
+        </div>
+    </div>
+</div>

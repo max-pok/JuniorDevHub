@@ -62,7 +62,8 @@
 
     <!-- Profile -->
     <div class="d-flex">
-      <nz-avatar nz-dropdown [nzDropdownMenu]="menu" class="nav-right" nzIcon="user"></nz-avatar>
+      <nz-avatar nz-dropdown [nzDropdownMenu]="menu" class="nav-right" nzIcon="user"
+        nzSrc="http://localhost:8081/api/users/profile-img/{{authService.userId}}"></nz-avatar>
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul class="popover-bg-profile" nz-menu>
           <h6 class="menu-header">Profile</h6>

@@ -11,6 +11,9 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzImageModule } from 'ng-zorro-antd/image';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzListModule } from 'ng-zorro-antd/list';
 
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
@@ -30,7 +33,10 @@ import { en_US } from 'ng-zorro-antd/i18n';
     NzButtonModule,
     NzCheckboxModule,
     NzCardModule,
-    NzSpinModule
+    NzSpinModule,
+    NzImageModule,
+    NzSpaceModule,
+    NzListModule,
   ],
 })
 export class AntdModule {}

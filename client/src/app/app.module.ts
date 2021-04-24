@@ -18,6 +18,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 registerLocaleData(en);
 
@@ -39,6 +40,7 @@ registerLocaleData(en);
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
+    FontAwesomeModule,
   ],
   providers: [AuthService, AuthGuardService],
   bootstrap: [AppComponent],
