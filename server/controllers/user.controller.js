@@ -21,7 +21,7 @@ const getUserInformation = async (req, res) => {
   if (!user) {
     res.status(400).send("No posts found.")
   } else {
-    res.send({ user })
+    res.send(user)
   }
 }
 
