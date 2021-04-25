@@ -1,3 +1,5 @@
+import { PostService } from './services/post.service';
+import { UserService } from './services/user.service';
 import { AntdModule } from './antd.module';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
@@ -42,7 +44,7 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     FontAwesomeModule,
   ],
-  providers: [AuthService, AuthGuardService],
+  providers: [AuthService, AuthGuardService, UserService, PostService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

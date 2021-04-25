@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { encrypt } from '../utils/crypto'
 
 @Injectable({
@@ -11,11 +12,9 @@ export class AuthService {
   token: string;
   userId: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.token = localStorage.getItem('token');
     this.userId = localStorage.getItem('userId');
-    console.log(this.userId);
-    
   }
 
   login(email, password) {
@@ -30,6 +29,8 @@ export class AuthService {
 
         this.token = response['token'];
         this.userId = response['userId'];
+
+        this.router.navigate(['home']);
       })
   }
 

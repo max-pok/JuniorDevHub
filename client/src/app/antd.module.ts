@@ -14,6 +14,9 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzListModule } from 'ng-zorro-antd/list';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzCommentModule } from 'ng-zorro-antd/comment';
 
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
@@ -37,6 +40,9 @@ import { en_US } from 'ng-zorro-antd/i18n';
     NzImageModule,
     NzSpaceModule,
     NzListModule,
+    NzTypographyModule,
+    NzEmptyModule,
+    NzCommentModule,
   ],
 })
 export class AntdModule {}

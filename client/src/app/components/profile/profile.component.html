@@ -1,13 +1,12 @@
 <div class="container text-center">
     <div class="row justify-content-md-center">
-        <img class="cover-pic" nz-image nzSrc="http://localhost:8081/api/users/cover-img/{{authService.userId}}"
-            alt="" />
+        <img class="cover-pic" nz-image nzSrc="http://localhost:8081/api/users/cover-img/{{ userId }}" alt="" />
 
         <div class="profile-pic">
             <nz-avatar class="avatar-pic" [nzSize]="140" nzIcon="user"
-                nzSrc="http://localhost:8081/api/users/profile-img/{{authService.userId}}"></nz-avatar>
-            <h3>Maxim Pokidaylo</h3>
-            <h6>Software Developer</h6>
+                nzSrc="http://localhost:8081/api/users/profile-img/{{ userId }}"></nz-avatar>
+            <h3> {{ information.fname + " " + information.lname }} </h3>
+            <h6>{{ information.profession }}</h6>
         </div>
 
         <div class="row text-start profile-pic">
@@ -15,12 +14,12 @@
                 <nz-divider nzOrientation="center" nzText="Information"></nz-divider>
                 <div class="text-start">
                     <nz-space>
-                        <button nz-button nzType="primary">Edit</button>
+                        <button nz-button nzType="primary" *ngIf="userService.isCurrentUser(this.userId)">Edit</button>
                     </nz-space>
                 </div>
                 <br />
-                <nz-list nzBordered nzItemLayout="horizontal" [nzLoading]="loading">
-                    <nz-list-item *ngFor="let item of data">
+                <nz-list nzBordered nzItemLayout="horizontal" [nzLoading]="isInformationLoading">
+                    <nz-list-item *ngFor="let item of userService.data">
                         <nz-list-item-meta [nzDescription]="item.title">
                             <nz-list-item-meta-title>
                                 <a>{{ item.description }}</a>
@@ -28,7 +27,6 @@
                         </nz-list-item-meta>
                         <fa-icon [icon]="item.icon"></fa-icon>
                     </nz-list-item>
-                    <nz-list-empty *ngIf="data.length === 0"></nz-list-empty>
                 </nz-list>
             </div>
 
@@ -36,12 +34,52 @@
                 <nz-divider nzOrientation="center" nzText="Posts"></nz-divider>
                 <div class="text-end">
                     <nz-space>
-                        <button *nzSpaceItem nz-button nzType="primary">Recent</button>
-                        <button *nzSpaceItem nz-button nzType="primary">Popular</button>
+                        <button *nzSpaceItem nz-button [nzType]="isRecent ? 'primary' : 'default'"
+                            (click)="filterByRecent()">Recent</button>
+                        <button *nzSpaceItem nz-button [nzType]="!isRecent ? 'primary' : 'default'"
+                            (click)="filterByPopular()">Popular</button>
                     </nz-space>
                 </div>
                 <br />
-
+                <nz-list nzBordered nzItemLayout="vertical" [nzLoading]="isPostsLoading">
+                    <nz-list-item *ngFor="let post of filteredPosts">
+                        <nz-list-item-meta [nzAvatar]="nzAvatar">
+                            <ng-template #nzAvatar>
+                                <nz-avatar nzSize="large"
+                                    nzSrc="http://localhost:8081/api/users/profile-img/{{ post.user_id }}"></nz-avatar>
+                            </ng-template>
+                            <nz-list-item-meta-title>
+                                <a routerLink="/posts/" [queryParams]="{ postId: post._id }">{{ post.title }}</a>
+                            </nz-list-item-meta-title>
+                            <nz-list-item-meta-description>
+                                <p class="post-date">{{ getDateOfPost(post.date) }}</p>
+                                <p class="post-content">{{ post.content }}</p>
+                                <a *ngFor="let tag of post.tags" href="https://google.com/{{ tag }}"> #{{ tag }} </a>
+                            </nz-list-item-meta-description>
+                        </nz-list-item-meta>
+                        <ul nz-list-item-actions>
+                            <nz-list-item-action>
+                                <i nz-icon nzType="like" class="like-icon" style="margin-right: 8px;"></i>
+                                <span nz-typography><kbd>{{ post.noice_ids.length }}</kbd></span>
+                            </nz-list-item-action>
+                            <nz-list-item-action>
+                                <i nz-icon nzType="message" class="comment-icon" style="margin-right: 8px;"></i>
+                                <span nz-typography><kbd>{{ post.comment_ids.length }}</kbd></span>
+                            </nz-list-item-action>
+                        </ul>
+                        <nz-list-item-extra>
+                            <img *ngIf="!post.img" nz-image width="272" alt="logo"
+                                nzSrc="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />
+                        </nz-list-item-extra>
+                    </nz-list-item>
+                    <nz-empty *ngIf="posts.length == 0" nzNotFoundImage="simple" [nzNotFoundContent]="contentTpl">
+                        <ng-template #contentTpl>
+                            No Posts Yet
+                            <br />
+                            <button nz-button nzType="primary" (click)="onClick()">Create a Post</button>
+                        </ng-template>
+                    </nz-empty>
+                </nz-list>
             </div>
         </div>
     </div>

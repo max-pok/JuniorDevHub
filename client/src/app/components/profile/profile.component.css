@@ -33,6 +33,7 @@
 
 .like-icon:hover {
   color: red;
+  cursor: pointer;
 }
 
 .comment-icon {
@@ -41,4 +42,20 @@
 
 .comment-icon:hover {
   color: rgb(27, 106, 151);
+  cursor: pointer;
+}
+
+.post-date {
+  position: relative;
+  top: -10px;
+}
+
+.post-content {
+  position: relative;
+  top: -10px;
+}
+
+.post-avatar {
+  position: relative;
+  top: 10px;
 }
