@@ -13,4 +13,12 @@ export class PostService {
   getPostsById(userId) {
     return this.http.get<Post[]>(this.userPostUrl + userId).toPromise()
   }
+
+  getAllPosts() {
+    return this.http.get<Post[]>(this.userPostUrl).toPromise();
+  }
+
+  createPost(post: Post) {
+    // ...
+  }
 }

@@ -1,0 +1,40 @@
+<nz-list nzBordered nzItemLayout="horizontal" class="post-cart">
+    <nz-list-item>
+        <nz-list-item-meta [nzAvatar]="nzAvatar">
+            <nz-list-item-meta-title>
+                <ng-template #nzAvatar>
+                    <nz-avatar nzSize="large"
+                        nzSrc="http://localhost:8081/api/users/profile-img/{{authService.userId}}">
+                    </nz-avatar>
+                </ng-template>
+                <input type="text" nz-input [(ngModel)]="inputValue" placeholder="Share a title..." nzSize="large" />
+                <br />
+                <br />
+                <textarea rows="4" nz-input [(ngModel)]="textValue" placeholder="Share your knowledge..."
+                    nzSize="large"></textarea>
+            </nz-list-item-meta-title>
+        </nz-list-item-meta>
+    </nz-list-item>
+    <nz-list-item class="conteiner text-center">
+        <nz-list-item-meta>
+            <nz-list-item-meta-title>
+                <button nz-button nzShape="round" nzType="default" nzSize="large">
+                    <i nz-icon nzType="file-image" nzTheme="outline"></i>
+                </button>
+                <nz-divider nzType="vertical"></nz-divider>
+                <button nz-button nzShape="round" nzType="default" nzSize="large">
+                    <i nz-icon nzType="video-camera" nzTheme="outline"></i>
+                </button>
+                <nz-divider nzType="vertical"></nz-divider>
+                <button nz-button nzShape="round" nzType="default" nzSize="large">
+                    <i nz-icon nzType="tags" nzTheme="outline"></i>
+                </button>
+            </nz-list-item-meta-title>
+        </nz-list-item-meta>
+    </nz-list-item>
+    <nz-list-item>
+        <button nz-button nzType="primary" nzSize="default" nzBlock>
+            Publish
+        </button>
+    </nz-list-item>
+</nz-list>

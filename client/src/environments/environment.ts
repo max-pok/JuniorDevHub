@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  CRYPTO_SECRET_KEY: 'HOLLA SENIOR'
+  CRYPTO_SECRET_KEY: 'HOLLA SENIOR',
+  WEATHER_API: 'bce0e560d0b631a58040daa6546eed48'
 };
 
 /*
