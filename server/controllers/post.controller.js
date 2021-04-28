@@ -25,4 +25,4 @@ const getPosts = async (req, res) => {
   }
 }
 
-module.exports = { getUserPosts }
+module.exports = { getUserPosts, getPosts }

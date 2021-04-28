@@ -24,7 +24,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { WeatherComponent } from './components/weather/weather.component';
 import { PostListComponent } from './components/post-list/post-list.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 registerLocaleData(en);
 
@@ -49,8 +48,7 @@ registerLocaleData(en);
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    FontAwesomeModule,
-    NgbModule,
+    FontAwesomeModule
   ],
   providers: [AuthService, AuthGuardService, UserService, PostService],
   bootstrap: [AppComponent],
