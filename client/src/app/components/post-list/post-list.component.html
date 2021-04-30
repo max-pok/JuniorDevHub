@@ -6,7 +6,7 @@
                     <nz-avatar nzSize="large" nzSrc="http://localhost:8081/api/users/profile-img/{{post.user_id}}">
                     </nz-avatar>
                     <div class="col-9">
-                        <a> Maxim Pokidaylo </a>
+                        <a> {{ post.user_name }} </a>
                         <br />
                         <p class="card-text"><small class="text-muted">{{ post.date }}</small></p>
                     </div>
@@ -39,18 +39,14 @@
             <div class="row justify-content-end">
                 <div class="col-auto me-auto">
                     <nz-avatar-group>
-                        <div *ngFor="let id of post.noice_ids; let i = index">
-                            <nz-avatar *ngIf="i < 5" nzIcon="user"
-                                nzSrc="http://localhost:8081/api/users/profile-img/{{id}}">
-                            </nz-avatar>
-                        </div>
-                        <nz-avatar *ngIf="i >= 5" style="background-color: #fde3cf; color: #f56a00"
-                            nzText="+{{post.noice_ids.length - 5}}"></nz-avatar>
-                        <div class="col">
-                            <small class="text-muted">Liked this</small>
-                        </div>
+                        <nz-avatar *ngFor="let id of post.noice_ids | slice:0:3" nzIcon="user" nz-tooltip
+                            nzTooltipTitle="NG-ZORRO User" nzSrc="http://localhost:8081/api/users/profile-img/{{id}}">
+                        </nz-avatar>
+                        <nz-avatar *ngIf="post.noice_ids.length > 3" style="background-color: #fde3cf; color: #f56a00"
+                            nzText="+{{post.noice_ids.length - 3}}">
+                        </nz-avatar>
                     </nz-avatar-group>
-
+                    <small *ngIf="post.noice_ids.length != 0" class="text-muted">Liked this</small>
                 </div>
                 <div class="col-auto" style="padding-top: '10px';">
                     <span nz-typography><kbd>{{ post.comment_ids.length }}</kbd></span>

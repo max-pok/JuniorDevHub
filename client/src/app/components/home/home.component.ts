@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +7,15 @@ import { environment } from 'src/environments/environment';
 })
 export class HomeComponent implements OnInit {
   isSelected = false;
+  isCreatePostClicked = false;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  update(data: boolean) {
+    this.isSelected = data;
   }
 
 }

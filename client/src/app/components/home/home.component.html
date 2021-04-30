@@ -1,14 +1,17 @@
 <div class="container mt-4">
     <div class="row">
-        <div class="col">
+        <div class="col" [ngClass]="isSelected ? 'blur' : null">
             <weather></weather>
         </div>
         <div class="col-7">
-            <create-post></create-post>
+            <create-post (isCreatePostClickedEventEmitter)="update($event)" [isCreatePostClicked]="isSelected">
+            </create-post>
             <br />
-            <post-list></post-list>
+            <div [ngClass]="isSelected ? 'blur' : null">
+                <post-list></post-list>
+            </div>
         </div>
-        <div class="col">
+        <div class="col" [ngClass]="isSelected ? 'blur' : null">
             follow suggestion
         </div>
     </div>

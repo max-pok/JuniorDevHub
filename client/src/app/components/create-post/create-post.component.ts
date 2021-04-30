@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
+import { PostService } from './../../services/post.service';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
 
 @Component({
   selector: 'create-post',
@@ -8,19 +9,71 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./create-post.component.css']
 })
 export class CreatePostComponent implements OnInit {
-  inputValue: string | null = null;
-  textValue: string | null = null;
+  // files
+  uploading = false;
+  fileList: File[] = [];
+    previewImage: string | undefined = '';
+  previewVisible = false;
 
-  panels = [
-    {
-      active: true,
-      disabled: false
-    },
-  ];
+  // text input
+  textValue: string = "";
+  
+  // hashtags input
+  inputVisible = false;
+  tagValue = '';
+  suggestions: string[] = ['Angular', 'React', 'Node.js'];
+  tags: string[] = [];
+  
+  // on screen click [effect]
+  @Input() isCreatePostClicked;
+  @Output() isCreatePostClickedEventEmitter = new EventEmitter<boolean>();
 
-  constructor(public authService: AuthService) { }
+    
+  constructor(private authService: AuthService, private postService: PostService, private eRef: ElementRef) {
+  }
 
   ngOnInit(): void {
   }
 
+  @HostListener('document:click', ['$event'])
+  clickOut(event: Event) {
+    if (this.eRef.nativeElement.contains(event.target)) {
+      this.isCreatePostClickedEventEmitter.emit(true)
+    } else {
+      this.isCreatePostClickedEventEmitter.emit(false)
+      this.inputVisible = false;
+    }
+  }
+
+  handleClose(removedTag: {}, event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.tags = this.tags.filter(tag => tag !== removedTag);
+  }
+
+  sliceTagName(tag: string): string {
+    const isLongTag = tag.length > 20;
+    return isLongTag ? `${tag.slice(0, 20)}...` : tag;
+  }
+
+  showInput(): void {
+    this.inputVisible = true;
+  }
+
+  handleInputConfirm(): void {
+    if (this.tagValue && this.tags.indexOf(this.tagValue) === -1) {
+      this.tags = [...this.tags, this.tagValue];
+    }
+    this.tagValue = '';
+    this.inputVisible = false;
+  }
+
+  beforeUpload = (file: File): boolean => {
+    this.fileList = this.fileList.concat(file);
+    return false;
+  };
+
+  handleUpload(): void {
+    this.postService.createPost(this.fileList, this.authService.userId);
+  }
 }

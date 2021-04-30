@@ -4,3 +4,7 @@
   border-radius: 5px;
   border-color: #161b22;
 }
+
+.editable-tag {
+  border-style: dashed;
+}

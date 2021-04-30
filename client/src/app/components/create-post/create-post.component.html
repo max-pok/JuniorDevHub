@@ -1,4 +1,5 @@
 <nz-list nzBordered nzItemLayout="horizontal" class="post-cart">
+    <!-- Text Field -->
     <nz-list-item>
         <nz-list-item-meta [nzAvatar]="nzAvatar">
             <nz-list-item-meta-title>
@@ -7,33 +8,53 @@
                         nzSrc="http://localhost:8081/api/users/profile-img/{{authService.userId}}">
                     </nz-avatar>
                 </ng-template>
-                <input type="text" nz-input [(ngModel)]="inputValue" placeholder="Share a title..." nzSize="large" />
-                <br />
-                <br />
                 <textarea rows="4" nz-input [(ngModel)]="textValue" placeholder="Share your knowledge..."
                     nzSize="large"></textarea>
             </nz-list-item-meta-title>
         </nz-list-item-meta>
     </nz-list-item>
+    <!-- Tags -->
+    <nz-list-item *ngIf="tags.length != 0 || inputVisible">
+        <nz-list-item-meta [nzAvatar]="nzTag">
+            <nz-list-item-meta-title>
+                <ng-template #nzTag nzSize="large">
+                    Tags:
+                </ng-template>
+                <nz-tag *ngFor="let tag of tags; let i = index" [nzMode]="'closeable'"
+                    (nzOnClose)="handleClose(tag, $event)">
+                    #{{ sliceTagName(tag) }}
+                </nz-tag>
+                <nz-input-group nzAddOnBefore="#" *ngIf="inputVisible" nzSize="small">
+                    <input nz-input type="text" [(ngModel)]="tagValue" style="width: 78px;"
+                        (blur)="handleInputConfirm()" (keydown.enter)="handleInputConfirm()" />
+                </nz-input-group>
+            </nz-list-item-meta-title>
+        </nz-list-item-meta>
+    </nz-list-item>
+    <!-- Actions -->
     <nz-list-item class="conteiner text-center">
         <nz-list-item-meta>
             <nz-list-item-meta-title>
-                <button nz-button nzShape="round" nzType="default" nzSize="large">
-                    <i nz-icon nzType="file-image" nzTheme="outline"></i>
+                <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload" nzListType="picture"
+                    [(nzFileList)]="fileList">
+                    <button nz-button><i nz-icon nzType="upload"></i>Photo / Video</button>
+                </nz-upload>
+                <nz-divider></nz-divider>
+                <button nz-button nzShape="round" nzType="default" nzSize="default">
+                    <i nz-icon nzType="link" nzTheme="outline"></i>
+                    Link
                 </button>
                 <nz-divider nzType="vertical"></nz-divider>
-                <button nz-button nzShape="round" nzType="default" nzSize="large">
-                    <i nz-icon nzType="video-camera" nzTheme="outline"></i>
-                </button>
-                <nz-divider nzType="vertical"></nz-divider>
-                <button nz-button nzShape="round" nzType="default" nzSize="large">
+                <button nz-button nzShape="round" nzType="default" nzSize="default" (click)="inputVisible = true">
                     <i nz-icon nzType="tags" nzTheme="outline"></i>
+                    Hashtag
                 </button>
             </nz-list-item-meta-title>
         </nz-list-item-meta>
     </nz-list-item>
-    <nz-list-item>
-        <button nz-button nzType="primary" nzSize="default" nzBlock>
+    <!-- Publish Button -->
+    <nz-list-item *ngIf="isCreatePostClicked">
+        <button nz-button nzType="primary" nzSize="default" nzBlock (click)="handleUpload()">
             Publish
         </button>
     </nz-list-item>

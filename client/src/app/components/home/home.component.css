@@ -1,8 +1,14 @@
-@import "~ng-zorro-antd/ng-zorro-antd.min.css";
+.blur {
+  animation: blurry 0.5s forwards;
+}
 
-.calendar {
-  border-radius: 5px;
-  background-color: #0d1117;
-  border-color: rgb(36, 36, 36);
-  border-width: 1px;
+@keyframes blurry {
+  from {
+    filter: blur(0px);
+    opacity: 1;
+  }
+  to {
+    filter: blur(5px);
+    opacity: 0.2;
+  }
 }

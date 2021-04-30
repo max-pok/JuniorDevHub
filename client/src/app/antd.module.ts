@@ -21,6 +21,8 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTagModule } from 'ng-zorro-antd/tag';
 
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
@@ -51,6 +53,8 @@ import { en_US } from 'ng-zorro-antd/i18n';
     NzCollapseModule,
     NzSkeletonModule,
     NzCarouselModule,
+    NzToolTipModule,
+    NzTagModule,
   ],
 })
 export class AntdModule {}
