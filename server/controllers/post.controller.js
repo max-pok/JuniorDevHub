@@ -25,4 +25,11 @@ const getPosts = async (req, res) => {
   }
 }
 
-module.exports = { getUserPosts, getPosts }
+/**
+ * @Post
+ */
+const uploadPost = async (req, res) => {
+  // ..
+}
+
+module.exports = { getUserPosts, getPosts, uploadPost }
