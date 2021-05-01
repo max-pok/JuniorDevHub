@@ -1,6 +1,8 @@
 const PostService = require("../services/post.service")
 const postService = new PostService()
 
+const path = require("path")
+
 /**
  * @Get
  */
@@ -29,7 +31,12 @@ const getPosts = async (req, res) => {
  * @Post
  */
 const uploadPost = async (req, res) => {
-  // ..
+  // Post Content Upload
+  const post = await postService.createPost(req.body.post, req.files)
+  if (post && req.files) {
+    postService.uploadPostFiles(req.files)
+  }
+  res.status(200)
 }
 
 module.exports = { getUserPosts, getPosts, uploadPost }
