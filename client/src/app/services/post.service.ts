@@ -19,13 +19,13 @@ export class PostService {
     return this.http.get<Post[]>(this.userPostUrl).toPromise();
   }
 
-  createPost(fileList, userId) {    
+  createPost(fileList, post: Post) {    
     const formData = new FormData()
     fileList.forEach((file: any) => {
       formData.append('files[]', file);
     });
     
-    this.http.post(this.userPostUrl + 'upload', formData, { reportProgress: true })
+    this.http.post(this.userPostUrl + 'upload', { formData, post }, { reportProgress: true })
       .subscribe(res => {
         console.log(res);
     })

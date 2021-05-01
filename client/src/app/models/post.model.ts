@@ -6,7 +6,7 @@ export class Post {
   date: string;
   comment_ids: [];
   noice_ids: [];
-  tags: [];
+  tags: string[];
   img: string;
   video: string;
 }

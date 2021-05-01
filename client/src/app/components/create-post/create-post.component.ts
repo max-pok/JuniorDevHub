@@ -2,6 +2,7 @@ import { PostService } from './../../services/post.service';
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
+import { Post } from 'src/app/models/post.model';
 
 @Component({
   selector: 'create-post',
@@ -12,8 +13,6 @@ export class CreatePostComponent implements OnInit {
   // files
   uploading = false;
   fileList: File[] = [];
-    previewImage: string | undefined = '';
-  previewVisible = false;
 
   // text input
   textValue: string = "";
@@ -74,6 +73,12 @@ export class CreatePostComponent implements OnInit {
   };
 
   handleUpload(): void {
-    this.postService.createPost(this.fileList, this.authService.userId);
+    let post = new Post()
+    post.user_id = this.authService.userId
+    post.user_name = "Max Pokidaylo"
+    post.content = this.textValue
+    post.date = new Date().toDateString()
+    post.tags = this.tags
+    this.postService.createPost(this.fileList, post);
   }
 }
