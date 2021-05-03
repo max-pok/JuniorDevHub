@@ -2,6 +2,7 @@ const Post = require("../models/post.model")
 const { PostFile } = require("../models/file.model")
 const fs = require("fs")
 const path = require("path")
+const mongoose = require("mongoose")
 
 class PostService {
   constructor() {}
@@ -16,9 +17,9 @@ class PostService {
     return posts || []
   }
 
-  async createPost(post, files) {
-    if (files) {
-      post = { ...post, img: files[0].filename || "" }
+  async createPost(post, fileId) {
+    if (fileId) {
+      post = { ...post, img: fileId }
     }
     return await new Post(post).save()
   }
@@ -27,8 +28,17 @@ class PostService {
     const fileStream = fs.createReadStream(path.join(__dirname, "/../uploads/", files[0].filename))
     const postFile = new PostFile()
     postFile.filename = files[0].filename
-    await postFile.upload(fileStream)
+    const result = await postFile.upload(fileStream)
     fileStream.close()
+    return result ? result._id : null
+  }
+
+  async getPostInformation(postId) {
+    if (mongoose.Types.ObjectId.isValid(postId)) {
+      const post = await Post.findById(postId)
+      return post
+    }
+    return null
   }
 }
 
