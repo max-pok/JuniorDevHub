@@ -15,13 +15,13 @@
                     </div>
                 </div>
                 <br />
-                <div class="row">
+                <div class="row content">
                     {{ post.content }}
                 </div>
             </div>
         </div>
 
-        <img src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png">
+        <img *ngIf="post.img[0] && post.img[0].length > 0" src="http://localhost:8081/api/posts/{{post._id}}">
 
         <div class="container">
             <div class="row justify-content-end">

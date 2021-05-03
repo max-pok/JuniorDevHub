@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { NzUploadFile } from 'ng-zorro-antd/upload';
+import { mergeMap } from 'rxjs/operators';
 import { Post } from '../models/post.model';
 
 @Injectable({
@@ -19,15 +19,19 @@ export class PostService {
     return this.http.get<Post[]>(this.userPostUrl).toPromise();
   }
 
-  createPost(fileList, post: Post) {    
+  createPost(fileList, post) {
     const formData = new FormData()
     fileList.forEach((file: any) => {
       formData.append('files[]', file);
     });
-    
-    this.http.post(this.userPostUrl + 'upload', { formData, post }, { reportProgress: true })
-      .subscribe(res => {
-        console.log(res);
-    })
+        
+    return this.http.post(this.userPostUrl + 'upload-form-data', formData, { reportProgress: true })
+      .pipe(
+        mergeMap(postId => {
+          console.log(postId);
+          post = { ...post, img: postId || "" }
+          return this.http.post(this.userPostUrl + 'upload-post-data', post)
+        })
+      )
   }
 }

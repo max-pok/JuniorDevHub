@@ -27,7 +27,8 @@ export class CreatePostComponent implements OnInit {
   @Input() isCreatePostClicked;
   @Output() isCreatePostClickedEventEmitter = new EventEmitter<boolean>();
 
-    
+  isLoading = false;
+
   constructor(private authService: AuthService, private postService: PostService, private eRef: ElementRef) {
   }
 
@@ -73,12 +74,19 @@ export class CreatePostComponent implements OnInit {
   };
 
   handleUpload(): void {
+    this.isLoading = true
     let post = new Post()
     post.user_id = this.authService.userId
     post.user_name = "Max Pokidaylo"
     post.content = this.textValue
     post.date = new Date().toDateString()
     post.tags = this.tags
-    this.postService.createPost(this.fileList, post);
+    this.postService.createPost(this.fileList, post).subscribe(result => {
+      // TODO: add create post massage.
+      this.isLoading = false
+      this.textValue = ""
+      this.tags = []
+      this.fileList = []
+    })
   }
 }

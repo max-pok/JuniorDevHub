@@ -96,3 +96,7 @@ h3 {
 .font-weight-bold:hover {
   color: rgb(7, 149, 192);
 }
+
+.content {
+  white-space: pre-line;
+}

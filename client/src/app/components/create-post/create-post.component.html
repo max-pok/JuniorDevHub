@@ -54,7 +54,8 @@
     </nz-list-item>
     <!-- Publish Button -->
     <nz-list-item *ngIf="isCreatePostClicked">
-        <button nz-button nzType="primary" nzSize="default" nzBlock (click)="handleUpload()">
+        <button nz-button nzType="primary" nzSize="default" nzBlock (click)="handleUpload()"
+            [disabled]="textValue.length == 0" [nzLoading]="isLoading">
             Publish
         </button>
     </nz-list-item>
