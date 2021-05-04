@@ -11,6 +11,6 @@ router.route("/upload-form-data").post(upload.array("files[]"), postController.u
 router.route("/upload-post-data").post(postController.uploadPost) // get user posts.
 router.route("/").get(postController.getPosts) // get user posts.
 
-stream_router.route("/:postId").get(postController.getPostImage)
+stream_router.route("/:postImageId").get(postController.getPostImage)
 
 module.exports = { router, stream_router }
