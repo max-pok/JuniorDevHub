@@ -20,7 +20,6 @@ import { NzCommentModule } from 'ng-zorro-antd/comment';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
-import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 
@@ -52,7 +51,6 @@ import { en_US } from 'ng-zorro-antd/i18n';
     NzUploadModule,
     NzCollapseModule,
     NzSkeletonModule,
-    NzCarouselModule,
     NzToolTipModule,
     NzTagModule,
   ],

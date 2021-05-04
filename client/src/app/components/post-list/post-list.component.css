@@ -18,11 +18,16 @@
   cursor: pointer;
 }
 
+.post-divider {
+  position: relative;
+  top: 20px;
+}
+
 [nz-carousel-content] {
   text-align: center;
   height: 160px;
   line-height: 160px;
-  background: #0d1117;
+  background: #364d79;
   color: #fff;
   overflow: hidden;
 }

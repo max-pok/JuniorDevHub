@@ -19,9 +19,19 @@
                     {{ post.content }}
                 </div>
             </div>
+            <div>
+                <a *ngFor="let tag of post.tags" href="">#{{ tag }} </a>
+            </div>
         </div>
 
-        <img *ngIf="post.img[0] && post.img[0].length > 0" src="http://localhost:8081/api/posts/{{post._id}}">
+        <img *ngIf="post.img[0] && post.img[0].length > 0; else noFiles"
+            src="http://localhost:8081/api/posts/{{ post.img[0] }}" alt="post_image">
+
+        <ng-template #noFiles>
+            <div class="post-divider">
+                <nz-divider></nz-divider>
+            </div>
+        </ng-template>
 
         <div class="container">
             <div class="row justify-content-end">
