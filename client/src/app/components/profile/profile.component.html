@@ -59,7 +59,9 @@
                         </nz-list-item-meta>
                         <ul nz-list-item-actions>
                             <nz-list-item-action>
-                                <i nz-icon nzType="like" class="like-icon" style="margin-right: 8px;"></i>
+                                <i nz-icon nzType="like" class="like-icon" [ngClass]="post.liked ? 'active' : ''"
+                                    style="margin-right: 8px;" [nzTheme]="post.liked ? 'fill' : 'outline'"
+                                    (click)="like(post)"></i>
                                 <span nz-typography><kbd>{{ post.noice_ids.length }}</kbd></span>
                             </nz-list-item-action>
                             <nz-list-item-action>
@@ -68,8 +70,12 @@
                             </nz-list-item-action>
                         </ul>
                         <nz-list-item-extra>
-                            <img *ngIf="!post.img" nz-image width="272" alt="logo"
-                                nzSrc="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />
+                            <div *ngFor="let img of post.img">
+                                <img nz-image width="272" alt="logo" *ngIf="post.img[0].length > 0"
+                                    nzSrc="http://localhost:8081/api/posts/{{ img }}" />
+                                <br />
+                                <br />
+                            </div>
                         </nz-list-item-extra>
                     </nz-list-item>
                     <nz-empty *ngIf="posts.length == 0" nzNotFoundImage="simple" [nzNotFoundContent]="contentTpl">

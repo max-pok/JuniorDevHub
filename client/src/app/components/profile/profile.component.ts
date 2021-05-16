@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { PostService } from './../../services/post.service';
 import { UserService } from './../../services/user.service';
 import { ActivatedRoute } from '@angular/router';
@@ -20,7 +21,7 @@ export class ProfileComponent implements OnInit {
   posts: Post[] = [];
   filteredPosts: Post[] = [];
   
-  constructor(public postService: PostService, public userService: UserService ,public route: ActivatedRoute) { }
+  constructor(public postService: PostService, public userService: UserService ,public route: ActivatedRoute, private authService: AuthService) { }
 
   async ngOnInit(): Promise<void> {
     this.route.queryParams.subscribe(values => {
@@ -32,7 +33,11 @@ export class ProfileComponent implements OnInit {
       .all([this.userService.getUserInfo(this.userId), this.postService.getPostsById(this.userId)])
       .then(response => {
         this.information = response[0];
-        this.posts = response[1];
+        
+        this.posts = response[1].map(post => {
+          const noice_ids: string[] = post.noice_ids;
+          return { ...post, liked: noice_ids.indexOf(this.authService.userId) >= 0 ? true : false }
+        })
         this.filteredPosts = this.posts
         this.filterByRecent()
       })
@@ -61,6 +66,10 @@ export class ProfileComponent implements OnInit {
   filterByPopular() {
     this.isRecent = false;
     this.filteredPosts.sort((a, b) => { return b.noice_ids.length - a.noice_ids.length });
+  }
+
+  like(post) {
+    this.postService.like(post, this.authService.userId)
   }
 
 }

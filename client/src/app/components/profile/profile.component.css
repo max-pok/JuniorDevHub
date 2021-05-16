@@ -31,6 +31,11 @@
   color: aliceblue;
 }
 
+.like-icon.active {
+  color: red;
+  cursor: pointer;
+}
+
 .like-icon:hover {
   color: red;
   cursor: pointer;

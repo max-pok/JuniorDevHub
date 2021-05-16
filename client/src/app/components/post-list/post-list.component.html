@@ -24,8 +24,14 @@
             </div>
         </div>
 
-        <img *ngIf="post.img[0] && post.img[0].length > 0; else noFiles"
-            src="http://localhost:8081/api/posts/{{ post.img[0] }}" alt="post_image">
+        <ngb-carousel *ngIf="post.img[0] && post.img[0].length > 0; else noFiles">
+            <ng-template ngbSlide *ngFor="let img of post.img">
+                <div class="picsum-img-wrapper text-center">
+                    <img nz-image height="500px" nzSrc="http://localhost:8081/api/posts/{{ img }}"
+                        alt="Random first slide">
+                </div>
+            </ng-template>
+        </ngb-carousel>
 
         <ng-template #noFiles>
             <div class="post-divider">
@@ -41,7 +47,7 @@
                     </div>
                 </div>
                 <div class="col-auto">
-                    <div class="circle-like">
+                    <div class="circle-like" [ngClass]="post.liked ? 'active' : ''" (click)="like(post)">
                         <fa-icon class="a-text" [icon]="faHeart" size="1x"></fa-icon>
                     </div>
                 </div>

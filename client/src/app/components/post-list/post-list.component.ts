@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { PostService } from './../../services/post.service';
 import { Component, OnInit } from '@angular/core';
 import { faHeart, faComment, faBookmark } from '@fortawesome/free-solid-svg-icons';
@@ -18,15 +19,21 @@ export class PostListComponent implements OnInit {
 
   posts = []
 
-  constructor(private postService: PostService) { }
+  images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
+  constructor(private postService: PostService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.postService.getAllPosts().then(response => {    
-      response.sort((a, b) => {
-        return new Date(b.date).getTime() - new Date(a.date).getTime()
-      });
-      this.posts = response
+    this.postService.getAllPosts().then(response => {
+      const posts = response.map(post => {
+        const noice_ids: string[] = post.noice_ids;
+        return { ...post, liked: noice_ids.indexOf(this.authService.userId) >= 0 ? true : false }
+      })
+      this.posts = posts      
     })
+  }
+
+  like(post) {
+    this.postService.like(post, this.authService.userId)
   }
 
 }

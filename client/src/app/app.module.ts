@@ -3,6 +3,7 @@ import { UserService } from './services/user.service';
 import { AntdModule } from './antd.module';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
+import { RouteGuardService } from './services/route-guard.service';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -24,6 +25,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { WeatherComponent } from './components/weather/weather.component';
 import { PostListComponent } from './components/post-list/post-list.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SettingsComponent } from './components/settings/settings.component';
 
 registerLocaleData(en);
 
@@ -39,6 +42,7 @@ registerLocaleData(en);
     CreatePostComponent,
     WeatherComponent,
     PostListComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,8 +53,9 @@ registerLocaleData(en);
     FormsModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
+    NgbModule,
   ],
-  providers: [AuthService, AuthGuardService, UserService, PostService],
+  providers: [AuthService, AuthGuardService, UserService, PostService, RouteGuardService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

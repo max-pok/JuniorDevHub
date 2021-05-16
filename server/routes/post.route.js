@@ -10,6 +10,7 @@ router.route("/:userId").get(postController.getUserPosts) // get user posts.
 router.route("/upload-form-data").post(upload.array("files[]"), postController.uploadPostFiles) // get user posts.
 router.route("/upload-post-data").post(postController.uploadPost) // get user posts.
 router.route("/").get(postController.getPosts) // get user posts.
+router.route("/update").post(postController.updatePost) // update post.
 
 stream_router.route("/:postImageId").get(postController.getPostImage)
 

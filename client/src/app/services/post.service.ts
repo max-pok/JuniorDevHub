@@ -34,4 +34,31 @@ export class PostService {
         })
       )
   }
+
+  like(post, userId) {
+    post.liked = !post.liked;
+    if (post.liked) {
+      // add userId to noice_ids array
+      post.noice_ids.push(userId)
+    } else {
+      // remove userId to noice_ids array
+      const index = post.noice_ids.indexOf(userId)
+      if (index > -1) {
+        post.noice_ids.splice(index, 1)
+      }
+    }
+    this.http.post(this.userPostUrl + 'update', post, { responseType: 'text' }).toPromise().catch(err => {
+      post.liked = !post.liked;
+      if (post.liked) {
+        // add userId to noice_ids array
+        post.noice_ids.push(userId)
+      } else {
+        // remove userId to noice_ids array
+        const index = post.noice_ids.indexOf(userId)
+        if (index > -1) {
+          post.noice_ids.splice(index, 1)
+        }
+      }
+    })
+  }
 }

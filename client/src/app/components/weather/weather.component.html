@@ -1,14 +1,18 @@
 <nz-card class="weather-card">
     <div class="text-center">
-        <h4>31 &#8451;</h4>
-        <img src="assets/weather-icons/png/wsymbol_0001_sunny.png" width="83px">
-        <h5>Sunny</h5>
-        <h5>
+        <h4 *ngIf="weather_data">{{ weather_data.main.temp | number: '1.0-0' }} &#8451;</h4>
+        <img *ngIf="weather_data" src="assets/weather_icons/{{ weather_data.weather[0].icon }}.gif" width="83px"
+            alt="weather_icon">
+        <!-- <img *ngIf="weather_data" src="http://openweathermap.org/img/wn/{{ weather_data.weather[0].icon }}@2x.png"
+            alt=""> -->
+        <h5 *ngIf="weather_data">{{ (weather_data.weather[0].description | titlecase) || 'No Available'}}</h5>
+        <h5 *ngIf="weather_data">
             <fa-icon [icon]="faMapMarkerAlt"></fa-icon>
-            Los Angeles, CA
+            {{ weather_data.name }}, {{ weather_data.sys.country }}
         </h5>
         <br />
-        <p> Real Feel: 33 &#8451; <nz-divider nzType="vertical"></nz-divider> Rain Chance: 5%</p>
-        <p>Sunday, 26th 2021</p>
+        <p *ngIf="weather_data"> Feels Like: {{ weather_data.main.feels_like }} &#8451; <nz-divider nzType="vertical">
+            </nz-divider> Humidity: {{ weather_data.main.humidity }}%</p>
+        <p *ngIf="weather_data"> {{ weather_data.dt | date }} </p>
     </div>
 </nz-card>

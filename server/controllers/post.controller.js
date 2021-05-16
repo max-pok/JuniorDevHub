@@ -40,6 +40,19 @@ const getPosts = async (req, res) => {
 /**
  * @Post
  */
+const updatePost = async (req, res) => {
+  const { liked, ...post } = req.body
+  let update = await postService.updatePost(post)
+  if (update.nModified == 1) {
+    res.send("Post updated.")
+  } else {
+    res.status(500)
+  }
+}
+
+/**
+ * @Post
+ */
 const uploadPostFiles = async (req, res) => {
   if (req.files.length == 0) {
     // No files to upload.
@@ -83,4 +96,4 @@ const getPostImage = async (req, res) => {
   })
 }
 
-module.exports = { getUserPosts, getPosts, uploadPostFiles, uploadPost, getPostImage }
+module.exports = { getUserPosts, getPosts, uploadPostFiles, uploadPost, getPostImage, updatePost }
